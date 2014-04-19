@@ -1,4 +1,5 @@
-#Game Server for <prj name>
+#Sun of Arrea
+##GameServer
 ---
 Requirements:
 * python 2.7
