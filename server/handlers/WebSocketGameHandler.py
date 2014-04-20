@@ -9,4 +9,4 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
         self.write_message("Server says: "+message)
 
     def on_close(self):
-        self.write("SERVER: closing connection")
+        pass
