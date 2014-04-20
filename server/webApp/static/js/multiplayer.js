@@ -1,6 +1,11 @@
 var multiplayer = {
-//TODO: comments
+/*
+Обьект сетевого подключения.
+*/
     init: function(address){
+        /*
+         @param address адрес сервера для подключения по ws протоколу.
+        * */
         this.webSocketHost = address;
         this.webSocket = new WebSocket(this.webSocketHost);
         this.webSocket.onopen = this.handleOnOpen;
