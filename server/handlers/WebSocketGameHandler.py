@@ -1,24 +1,15 @@
-import json
-import logging
-import sys
-
+# -*- coding: utf-8 -*-
 import tornado.websocket
 
+from app.Game import Game
 
 class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
-    def open(self):
-        try:
-            self.write_message("Message from server: connection open")
-            self.write_message(json.dumps({"type":"cardReceived","card":{"name":"elf","health":2, "attack":1}}))
-        except:
-            logging.error(" - wsOpen "+str(sys.exc_info()[0]))
 
+    def open(self):
+        Game.newPlayerConnected(self)
 
     def on_message(self, message):
-        self.write_message("Server says: "+message)
-        if int(message) == 1:
-            self.write_message(json.dumps({"type":"cardReceived","card":
-                                                                    {"name":"Stormtrooper","health":52, "attack":72}}))
+        Game.parseMessage(self, message)
 
     def on_close(self):
-        pass
+        Game.playerDisconnected(self)
