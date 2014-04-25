@@ -20,7 +20,6 @@ class Game(object):
         """
         cls.connections.append(connection)
         try:
-            connection.write_message("Message from server: connection open")
             connection.write_message(json.dumps({"type":"cardReceived","card":{"name":"elf","health":2, "attack":1}}))
             logging.info(cls.connections)
         except ValueError:
@@ -40,7 +39,7 @@ class Game(object):
         message     <string> contains json received from client, which describes some action
         connection   <WebSocketHandler>
         """
-        connection.write_message("Server says: "+message)
+        print message
         messageCode = int(message)
         if messageCode == 1:
             connection.write_message(json.dumps({"type":"cardReceived","card":
