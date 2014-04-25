@@ -45,8 +45,8 @@ class Game(object):
             connection.write_message(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"Stormtrooper","health":52, "attack":72}}))
         elif messageCode == 2:
-            connection.write_message(json.dumps({"type":"listOfRoom","rooms": Game.rooms}))
+            connection.write_message(json.dumps({"type":"listOfRooms","rooms": Game.rooms}))
         elif messageCode == 3:
             room = Room(connection)
             Game.rooms.append(room)
-            connection.write_message(json.dumps({"type":"listOfRoom","rooms": str(Game.rooms)}))
+            connection.write_message(json.dumps({"type":"listOfRooms","rooms": str(Game.rooms)}))
