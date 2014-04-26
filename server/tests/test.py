@@ -1,6 +1,12 @@
 import unittest
+import json
+import sys
+import os.path
 
 import websocket
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from app.constants import MessageType
 
 class TestServer(unittest.TestCase):
     """
@@ -17,16 +23,24 @@ class TestServer(unittest.TestCase):
         print "----"
 
     def testOn1ServerSendsCard(self):
-        print "Sending 1"
-        self.ws.send('{"type":1}')
+        print "Sending {0}".format(MessageType.GetCard)
+        self.ws.send(json.dumps({'type':MessageType.GetCard}))
         self.ws.recv()
         res = self.ws.recv()
         print res
         self.assertIn("Stormtrooper", res)
 
     def testOn2ServerSendsRooms(self):
-        print "Sending 2"
-        self.ws.send('{"type":2}')
+        print "Sending {0}".format(MessageType.GetListOfRoom)
+        self.ws.send(json.dumps({'type':MessageType.GetListOfRoom}))
+        self.ws.recv()
+        res = self.ws.recv()
+        print res
+        self.assertIn("listOfRooms", res)
+
+    def testOn3ServerCreatesAndSendsRoom(self):
+        print "Sending {0}".format(MessageType.ConnectToRoom)
+        self.ws.send(json.dumps({'type':MessageType.ConnectToRoom}))
         self.ws.recv()
         res = self.ws.recv()
         print res
