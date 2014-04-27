@@ -5,6 +5,7 @@ import json
 import tornado.websocket
 
 from app.Game import Game
+from app.GameObjects import Room
 from app.constants import MessageType
 
 class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
@@ -23,10 +24,11 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
             self.write_message(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"Stormtrooper","health":52, "attack":72}}))
         elif messageCode == MessageType.GetListOfRoom:
-            self.write_message(json.dumps({"type":"listOfRooms","rooms": Game.rooms}))
+            self.write_message(json.dumps({"type":"listOfRooms","rooms": Room.getListOfRooms()}))
+
         elif messageCode == MessageType.ConnectToRoom:
             Game.createRoom(self)
-            self.write_message(json.dumps({"type":"listOfRooms","rooms": str(Game.rooms)}))
+            self.write_message(json.dumps({"type":"listOfRooms","rooms": Room.getListOfRooms()}))
 
     def on_close(self):
         Game.playerDisconnected(self)

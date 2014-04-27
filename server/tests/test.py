@@ -22,24 +22,24 @@ class TestServer(unittest.TestCase):
         self.assertIn("cardReceived", res)
         print "----"
 
-    def testOn1ServerSendsCard(self):
-        print "Sending {0}".format(MessageType.GetCard)
+    def testServerSendsCard(self):
+        print "Sending {0} ServerSendsCard".format(MessageType.GetCard)
         self.ws.send(json.dumps({'type':MessageType.GetCard}))
         self.ws.recv()
         res = self.ws.recv()
         print res
         self.assertIn("Stormtrooper", res)
 
-    def testOn2ServerSendsRooms(self):
-        print "Sending {0}".format(MessageType.GetListOfRoom)
+    def testServerSendsListRooms(self):
+        print "Sending {0} ListOfRooms".format(MessageType.GetListOfRoom)
         self.ws.send(json.dumps({'type':MessageType.GetListOfRoom}))
         self.ws.recv()
         res = self.ws.recv()
         print res
         self.assertIn("listOfRooms", res)
 
-    def testOn3ServerCreatesAndSendsRoom(self):
-        print "Sending {0}".format(MessageType.ConnectToRoom)
+    def testServerCreatesAndSendsRoom(self):
+        print "Sending {0} ConnectToServer".format(MessageType.ConnectToRoom)
         self.ws.send(json.dumps({'type':MessageType.ConnectToRoom}))
         self.ws.recv()
         res = self.ws.recv()
