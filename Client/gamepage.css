@@ -1,0 +1,103 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html {
+	height: 100%;
+}
+body {
+        background:url(/img/start.jpg);
+        background-size:  100% 100%;
+	font: 12px/18px Arial, sans-serif;
+}
+.pelena{
+    background: black;
+    opacity: 0.5;
+    width: 20%;
+    height: 21%;
+    border:3px peru groove;
+    z-index:1;
+}
+.center{
+    position:absolute;
+    left:40%;
+    top:30%;
+}
+.auth-form{
+    position:absolute;
+    left:40.5%;
+    top:35%;
+    width: 300px;
+}
+.form-over{
+    z-index:2;
+}
+.my-control-group{
+    width: 190px;
+    height: 27px;
+    margin-left: 15%;
+    padding: 1px;
+}
+.my-controls{
+    float: left;
+}
+.my-checkbox{
+    margin-left: 35%;
+}
+span{
+    color: wheat;
+    margin: 3px 10px 0 0;
+}
+.f-right{
+    float: right;
+}
+.button-block button.f-left{
+    margin-left: 6%;
+}
+.button-block button.f-right{
+    margin-right: 6%;
+}
+.button{
+    display: inline-block;
+    border: 1px solid black;
+    padding: 5px 12px;
+    font-size: 16px;
+    font-family: "Times New Roman",serif;
+    height: 30px;
+    width: 100px;
+}
+.button-auth{
+    width: 130px;
+}
+.button-brown{
+    background-color:#29AB87;
+}
+.corner-all{
+    border-radius: 5px;
+}
+.corner-1{
+    border-radius: 2px;
+}
+.button-game {
+  background-image: -webkit-linear-gradient(top, #00755E 0%, #008080 100%);
+  background-image:         linear-gradient(to bottom, rgba(113,116,117,1) 1%,rgba(87,188,219,1) 18%,rgba(6,0,204,1) 56%,rgba(17,0,209,1) 79%,rgba(79,79,79,1) 100%);
+  //background: rgb(113,116,117);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00755E', endColorstr='#ff008080', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = true);
+  background-repeat: repeat-x;
+  border-color:darkslategray;
+}
+.button-game:hover,
+.button-game:focus {
+  //background-color:darkblue;
+  background: linear-gradient(to bottom, rgba(74,76,76,1) 1%,rgba(48,127,255,1) 19%,rgba(6,0,204,1) 56%,rgba(17,0,209,1) 79%,rgba(88,91,83,1) 100%);
+ // background-position: 0 -60px;
+}
+.button-game:active,
+.button-game.active {
+  background: linear-gradient(to bottom, rgba(74,76,76,1) 1%,rgba(53,93,255,1) 19%,rgba(6,0,204,1) 56%,rgba(17,0,209,1) 79%,rgba(88,91,83,1) 100%);
+  border-color:darkslategray;
+}
+button{
+    color: #999999;
+}
