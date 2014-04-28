@@ -5,7 +5,10 @@
 Requirements:
 * python 2.7
 * tornado 3.2
-* websocket-client 0.13 (for test.py)
+
+
+For test script:
+* websocket-client 0.13
 
 
 Usage:
