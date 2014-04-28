@@ -4,6 +4,7 @@ import logging
 import json
 
 from GameObjects import *
+from exceptions import *
 
 class Game(object):
     """
@@ -29,11 +30,28 @@ class Game(object):
         logging.info(cls.players)
 
     @classmethod
-    def createRoom(cls, connection):
+    def createRoom(cls, connection, roomName = None):
         """
         Иницирует создание игровой комнаты.
-        Передает текущего игрока как создателя комнаты.
+        Если игрок не играет в другой комнате, создает комнату,
+        передает текущего игрока как создателя комнаты,
+        и помечает игрока как играющего.
+
+        Возвращает id созданной комнаты, иначе
+        raise PlayerException
         """
         player = cls.players.get(connection, None)
-        if player:
-            r = Room(player)
+        if player.room is None:
+            r = Room(player, roomName)
+            player.room = r
+            return r.id
+        else:
+            raise PlayerException("This user already in the room")
+
+    @classmethod
+    def connectToRoom(cls, id):
+        """
+        Добавляет игрока к уже созданной комнате.
+        id идентификатор комнаты для подключения.
+        """
+        pass

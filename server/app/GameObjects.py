@@ -9,9 +9,11 @@ class Player(object):
     def __init__(self, connection, name= "Anonymous"):
         """
         connection <WebSocketHandler> физическое соедениние с клиентом
+        name <string> имя игрока
         """
         self.connection = connection
         self.name = name
+        self.room = None    #комната в которой сейчас находится игрок
 
     def sendToPlayer(self, message):
         """
