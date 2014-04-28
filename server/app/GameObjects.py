@@ -6,11 +6,12 @@ class Player(object):
     """
     Класс описывает модель игрока, и его взаимодействие с клиентом
     """
-    def __init__(self, connection):
+    def __init__(self, connection, name= "Anonymous"):
         """
         connection <WebSocketHandler> физическое соедениние с клиентом
         """
         self.connection = connection
+        self.name = name
 
     def sendToPlayer(self, message):
         """
@@ -28,16 +29,32 @@ class Room(object):
     """
     rooms = {}  #Список созданных комнат
 
-    def __init__(self, player1):
+    def __init__(self, player1, roomName=None):
         """
-        Комнату должен создать один из игроков.
+        Создает комнату с одним игроком.
         player1 <Player> игрок создавший комнату
         """
         self.id = str(uuid.uuid4())
+        self.roomName = roomName
         self.player1 = player1
         self.player2 = None
-        Room.rooms[self.id]=self
+        Room.rooms[self.id]=self #Добавить комнату в список созданных
 
     @classmethod
     def getListOfRooms(cls):
-        return ["{0}:{1}".format(k,v) for k,v in cls.rooms.items()]
+        mes = []
+        for k in cls.rooms:
+            roomData = {
+                "id"    : cls.rooms[k].id,
+                "name"  : cls.rooms[k].roomName,
+                #Eсли игрок в комнате, вернуть имя.
+                "player1": cls.rooms[k].player1.name if cls.rooms[k].player1 is not None else None,
+                "player2": cls.rooms[k].player2.name if cls.rooms[k].player2 is not None else None
+            }
+            mes.append(roomData)
+        return  mes
+
+
+    @classmethod
+    def getRoomById(cls, id):
+        return cls.rooms.get(id, None)

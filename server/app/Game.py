@@ -15,7 +15,8 @@ class Game(object):
     @classmethod
     def newPlayerConnected(cls, connection):
         """
-        Add connection to connections
+        Метод из обьекта подключения создает игрока, и добавляет его в список игроков.
+        Если все успешно игроку отправляется приветственное сообщение.
         """
         p = Player(connection)
         cls.players[connection] =  p
@@ -29,4 +30,10 @@ class Game(object):
 
     @classmethod
     def createRoom(cls, connection):
-        r = Room(connection)
+        """
+        Иницирует создание игровой комнаты.
+        Передает текущего игрока как создателя комнаты.
+        """
+        player = cls.players.get(connection, None)
+        if player:
+            r = Room(player)
