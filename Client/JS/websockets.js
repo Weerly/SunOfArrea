@@ -16,10 +16,12 @@ var socket = {
 
     handleOnOpen: function(){
         console.log("connection Open");
+        
     },
 
     handleOnMessage: function(msg){
       console.log("Message received: "+msg.data);
+      receivedData.filter(msg.data);
     },
 
     handleOnClose: function(event){
@@ -29,4 +31,4 @@ var socket = {
     handleOnError: function(error){
         console.log("WS: ERROR occured "+error);
     }
-}
+};

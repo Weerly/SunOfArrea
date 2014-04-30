@@ -10,6 +10,49 @@ body {
         background-size:  100% 100%;
 	font: 12px/18px Arial, sans-serif;
 }
+.room{
+    background: black;
+    opacity: 0.5;
+    width: 20%;
+    border:3px peru groove;
+    z-index:1;
+    height: content-box;
+    max-height: 297px;
+    overflow: hidden;
+}
+#roomcontent{
+    max-height: 223px;
+    overflow: hidden;
+    
+}
+::-webkit-scrollbar              { width: 10px; }
+::-webkit-scrollbar-button       {background:dimgrey; }
+::-webkit-scrollbar-track        { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+                                    border-radius: 10px; }
+::-webkit-scrollbar-track-piece  { bdackground: blue; }
+::-webkit-scrollbar-thumb        { background:lightslategrey;
+                                   opacity: 0.3;
+                                   border-radius: 4px;
+                                   border: 1px wheat outset;
+                                   }
+::-webkit-scrollbar-corner       { /* 6 */ }
+::-webkit-resizer                { /* 7 */ }
+.rooms{
+    position:absolute;
+    left:40.5%;
+    top:34.7%;
+    width: 19%;
+    height:content-box;
+    padding: 1px;
+    z-index:2;
+}
+.roomlist{
+    height: 28px;
+    border-bottom: inset 2px royalblue;
+    padding-top:5px;
+    color: white;
+    //background: darkgrey;
+}
 .pelena{
     background: black;
     opacity: 0.5;
@@ -18,6 +61,7 @@ body {
     border:3px peru groove;
     z-index:1;
 }
+
 .center{
     position:absolute;
     left:40%;
@@ -66,6 +110,15 @@ span{
     height: 30px;
     width: 100px;
 }
+#refresh{
+    position: absolute;
+    left:40.5%;
+    top:31%;
+    width: 100px;
+    height: 30px;
+    z-index: 2;
+    color: wheat;
+}
 .button-auth{
     width: 130px;
 }
@@ -85,7 +138,7 @@ span{
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00755E', endColorstr='#ff008080', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = true);
   background-repeat: repeat-x;
-  border-color:darkslategray;
+  border-color:silver;
 }
 .button-game:hover,
 .button-game:focus {
