@@ -4,6 +4,8 @@ class Message():
     CreateRoom      = 20
     RoomCreated     = 21
     ConnectToRoom   = 30
+    ConnectedToRoom = 31
 
-    CriticalError   = 1000
-    Error           = 1010
+    SUCCESS         = 1000
+    CriticalError   = 1010
+    Error           = 1020

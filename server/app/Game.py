@@ -49,9 +49,20 @@ class Game(object):
             raise PlayerException("This user already in the room")
 
     @classmethod
-    def connectToRoom(cls, id):
+    def connectToRoom(cls, connection, parsedMessage):
         """
         Добавляет игрока к уже созданной комнате.
-        id идентификатор комнаты для подключения.
+        parsedMessage <dict> сообщение содержащее ид комнаты для подключения.
         """
-        pass
+        #get room id connect to
+        id = parsedMessage.get("id", None)
+        player = cls.players.get(connection, None)
+        if id and player:
+            room = Room.getRoomById(id)
+            if room.addPlayerToRoom(player):
+                #all OK. return room info
+                return room.getRoomInfo()
+        else:
+            logging.error("Game.connectToRoom() id or player is not right")
+            return None
+

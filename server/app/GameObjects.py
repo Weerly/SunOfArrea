@@ -21,6 +21,7 @@ class Player(object):
         """
         self.connection.write_message(message)
 
+
     def sendWelcomeMessage(self):
         self.sendToPlayer(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"elf","health":2, "attack":2}}))
@@ -56,7 +57,25 @@ class Room(object):
             mes.append(roomData)
         return  mes
 
+    def getRoomInfo(self):
+        return {
+                "id"    : self.id,
+                "name"  : self.roomName,
+                "player1": self.player1.name,
+                "player2": self.player2.name
+        }
 
     @classmethod
     def getRoomById(cls, id):
         return cls.rooms.get(id, None)
+
+    def addPlayerToRoom(self, player):
+        """
+        Добавляет второго игрока в комнату.
+        возращает True в случае успеха, False в случае если место игрока занято.
+        """
+        if self.player2 == None:
+            self.player2 = player
+            return True
+        else:
+            return False

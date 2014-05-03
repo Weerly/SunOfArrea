@@ -27,6 +27,8 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
         except ValueError:
             logging.error("wsHandler on_message Val error: "+message)
 
+        #Choose action:
+
         if messageCode == Message.GetCard:
             self.write_message(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"Stormtrooper","health":52, "attack":72}}))
@@ -34,8 +36,8 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
             self.write_message(json.dumps({"type":"listOfRooms","rooms": Room.getListOfRooms()}))
 
         elif messageCode == Message.CreateRoom:
-            #Возвращает id комнаты, или сообщает что игрок в другой комнате.
-            roomName = parsedMessage.get('name', None)
+            #Возвращает id комнаты, или сообщает что игрок уже в другой комнате.
+            roomName = parsedMessage.get("name", None)
             try:
                 roomId = Game.createRoom(self, roomName)
             except PlayerException as e:
@@ -44,6 +46,11 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
                 logging.critical(Room.rooms)
             else:
                 self.write_message(json.dumps({"type":Message.RoomCreated,"id": roomId}))
+
+        elif messageCode == Message.ConnectToRoom:
+            roomInfo = Game.connectToRoom(self, parsedMessage)
+            self.write_message(json.dumps({"type":Message.ConnectedToRoom,"roomInfo": json.dumps(roomInfo) }))
+
 
     def on_close(self):
         Game.playerDisconnected(self)
