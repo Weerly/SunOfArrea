@@ -5,6 +5,7 @@ class Message():
     RoomCreated         = 21
     ConnectToRoom       = 30
     ConnectedToRoom     = 31
+    PlayerConnected     = 32
     DestroyRoom         = 40
     RoomDestroyed       = 41
     PlayerDisconnected  = 50

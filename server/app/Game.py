@@ -69,7 +69,7 @@ class Game(object):
         Добавляет игрока к уже созданной комнате.
         parsedMessage <dict> сообщение содержащее ид комнаты для подключения.
         """
-        #get room id connect to
+        #get room id
         id = parsedMessage.get("id", None)
         player = cls.players.get(connection, None)
         if id and player:

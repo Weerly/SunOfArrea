@@ -24,7 +24,7 @@ class Player(object):
         """
         self.connection.write_message(message)
 
-    def notifyPlayer(self, messageType = None, description = None):
+    def notifyPlayer(self, messageType = None, description = None, data = None):
         """
         формирует стандартные сообщения на основании переданого типа. Если есть пояснения добавляит их как description
         """
@@ -32,7 +32,13 @@ class Player(object):
         if description:
             messageToSend["description"] = description
 
-        if messageType:
+        if messageType == Message.PlayerConnected:
+            messageToSend["type"] = Message.PlayerConnected
+            #data contains connected <Player> object.
+            messageToSend["playerInfo"] = {"name": data.name}
+
+        #no specific rule. Just send type.
+        else:
             messageToSend["type"] =  messageType
 
         self.sendToPlayer(json.dumps(messageType))
@@ -106,6 +112,7 @@ class Room(object):
         """
         if self.player2 == None:
             self.player2 = player
+            self.player1.notifyPlayer(Message.PlayerConnected, data=self.player2)
             return True
         else:
             return False
