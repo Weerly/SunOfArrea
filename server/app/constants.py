@@ -1,6 +1,7 @@
 class Message():
     GetCard             = 1
     GetListOfRoom       = 10
+    ListOfRooms         = 11
     CreateRoom          = 20
     RoomCreated         = 21
     ConnectToRoom       = 30

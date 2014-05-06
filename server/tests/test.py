@@ -35,7 +35,7 @@ class TestServer(unittest.TestCase):
         self.ws.recv()
         res = self.ws.recv()
         print res
-        self.assertIn("listOfRooms", res)
+        self.assertIn(str(Message.ListOfRooms), res)
 
     def testServerCreatesAndSendsRoom(self):
         print "\nSending {0} CreateRoom".format(Message.CreateRoom)

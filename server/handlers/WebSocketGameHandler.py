@@ -33,7 +33,7 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
             self.write_message(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"Stormtrooper","health":52, "attack":72}}))
         elif messageCode == Message.GetListOfRoom:
-            self.write_message(json.dumps({"type":"listOfRooms","rooms": Room.getListOfRooms()}))
+            self.write_message(json.dumps({"type":Message.ListOfRooms,"rooms": Room.getListOfRooms()}))
 
         elif messageCode == Message.CreateRoom:
             #Возвращает id комнаты, или сообщает что игрок уже в другой комнате.
