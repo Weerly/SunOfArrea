@@ -2,6 +2,9 @@
 import uuid
 import json
 
+from app.constants import Message
+
+
 class Player(object):
     """
     Класс описывает модель игрока, и его взаимодействие с клиентом
@@ -21,6 +24,19 @@ class Player(object):
         """
         self.connection.write_message(message)
 
+    def notifyPlayer(self, messageType = None, description = None):
+        """
+        формирует стандартные сообщения на основании переданого типа. Если есть пояснения добавляит их как description
+        """
+        messageToSend = {}
+        if description:
+            messageToSend["description"] = description
+
+        if messageType:
+            messageToSend["type"] =  messageType
+
+        self.sendToPlayer(json.dumps(messageType))
+
 
     def sendWelcomeMessage(self):
         self.sendToPlayer(json.dumps({"type":"cardReceived","card":
@@ -28,7 +44,7 @@ class Player(object):
 
 class Room(object):
     """
-    Игровая комната "внутри" которой осущетсвляется игра.
+    Игровая комната "внутри" которой происходит игра.
     """
     rooms = {}  #Список созданных комнат
 
@@ -42,6 +58,20 @@ class Room(object):
         self.player1 = player1
         self.player2 = None
         Room.rooms[self.id]=self #Добавить комнату в список созданных
+
+    def destroyRoom(self):
+        """Удаляет комнату, и информирует второго игрока"""
+        if self.player2:
+            self.player2.notifyPlayer(Message.RoomDestroyed)
+            self.player1.room = None
+        Room.rooms.pop(self.id, None)
+
+    def playerDisconnected(self, player):
+        #Отключившийся игрок создатель комнаты
+        if self.player1 == player:
+            self.destroyRoom()
+        else:
+            self.player1.sendToPlayer(Message.PlayerDisconnected)
 
     @classmethod
     def getListOfRooms(cls):

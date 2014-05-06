@@ -42,14 +42,16 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
                 roomId = Game.createRoom(self, roomName)
             except PlayerException as e:
                 self.write_message(json.dumps({"type":Message.Error,"description": e.value}))
-                logging.warning(e.value)
-                logging.critical(Room.rooms)
+                logging.warning("WShandler createRoom" + str(e.value))
             else:
                 self.write_message(json.dumps({"type":Message.RoomCreated,"id": roomId}))
 
         elif messageCode == Message.ConnectToRoom:
             roomInfo = Game.connectToRoom(self, parsedMessage)
             self.write_message(json.dumps({"type":Message.ConnectedToRoom,"roomInfo": json.dumps(roomInfo) }))
+
+        elif messageCode == Message.DestroyRoom:
+            Game.destroyRoom(self)
 
 
     def on_close(self):

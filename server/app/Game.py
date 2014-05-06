@@ -26,8 +26,23 @@ class Game(object):
 
     @classmethod
     def playerDisconnected(cls, connection):
-        cls.players.pop(connection, None)
-        logging.info(cls.players)
+        """ Если отключившийся игрок был в комнате, информировать комнату. """
+        player = cls.players.pop(connection, None)
+        room = player.room or None
+        if room:
+            room.playerDisconnected(player)
+        logging.info("Players list: "+str(cls.players))
+
+    @classmethod
+    def destroyRoom(cls, connection):
+        player = cls.players.get(connection, None)
+        room = player.room or None
+        #Только создатель комнаты имеет полномочия разрушить ее
+        if room.player1 == player:
+            room.destroyRoom()
+            player.notifyPlayer(Message.SUCCESS)
+        else:
+            player.notifyPlayer(Message.Error, "you don't have permission")
 
     @classmethod
     def createRoom(cls, connection, roomName = None):
