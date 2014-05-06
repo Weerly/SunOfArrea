@@ -81,3 +81,7 @@ class Game(object):
             logging.error("Game.connectToRoom() id or player is not right")
             return None
 
+    @classmethod
+    def notifyAllPlayers(cls, message):
+        for k in cls.players:
+            cls.players[k].sendToPlayer(message)

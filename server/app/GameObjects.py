@@ -109,3 +109,9 @@ class Room(object):
             return True
         else:
             return False
+
+    def notifyAllPlayers(self, message):
+        if self.player1:
+            self.player1.sendToPlayer(message)
+        if self.player2:
+            self.player2.sendToPlayer(message)
