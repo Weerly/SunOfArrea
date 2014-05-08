@@ -41,7 +41,7 @@ class Player(object):
         else:
             messageToSend["type"] =  messageType
 
-        self.sendToPlayer(json.dumps(messageType))
+        self.sendToPlayer(json.dumps(messageToSend))
 
 
     def sendWelcomeMessage(self):
