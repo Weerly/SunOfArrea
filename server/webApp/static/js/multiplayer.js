@@ -22,6 +22,8 @@ var multiplayer = {
 
     handleOnOpen: function(){
         console.log("connection Open");
+        document.title = "status: connected"
+        Utility.drawFavicon(Colors.GREEN);
     },
 
     handleOnMessage: function(msg){
@@ -30,6 +32,8 @@ var multiplayer = {
 
     handleOnClose: function(event){
         console.log("Connection closed. Code: " + event.code);
+        document.title = "status: DISCONNECT"
+        Utility.drawFavicon(Colors.RED);
     },
 
     handleOnError: function(error){
