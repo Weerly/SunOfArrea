@@ -1,1 +1,1 @@
-multiplayer.init("ws://localhost:8000/ws");
+multiplayer.init("ws://"+ location.host + "/ws");
