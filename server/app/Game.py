@@ -5,6 +5,7 @@ import json
 
 from GameObjects import *
 from exceptions import *
+from .constants import *
 
 class Game(object):
     """
@@ -32,6 +33,16 @@ class Game(object):
         if room:
             room.playerDisconnected(player)
         logging.info("Players list: "+str(cls.players))
+
+    @classmethod
+    def getPlayerByConnection(cls, connection):
+        player =  cls.players.get(connection, None)
+        return player
+
+    @classmethod
+    def getRoomByConnection(cls, connection):
+        """Принимает обьект подключения WebSocketGameHandler и возвращает игровую конату связаную с ним."""
+        return cls.getPlayerByConnection(connection).room
 
     @classmethod
     def destroyRoom(cls, connection):
@@ -82,6 +93,23 @@ class Game(object):
             return None
 
     @classmethod
-    def notifyAllPlayers(cls, message):
+    def notifyAllPlayersGlobal(cls, message):
         for k in cls.players:
             cls.players[k].sendToPlayer(message)
+
+    @classmethod
+    def notifyAllPlayersInRoom(cls, connection, clientMessage):
+        player =  cls.players.get(connection, None)
+        room = player.room
+        #clientMessage must contain message to send.
+        message = clientMessage.get("message", None)
+        if message is not None and room is not None:
+            room.notifyAllPlayers(json.dumps({"type": Message.ChatMessage, "message": message,
+                                              "playerName": player.name}))
+        else:
+            player.notifyPlayer(Message.Error,
+                                description= "smth gone wrong. message is incorrect or player not in the room",
+                                message= json.dumps(clientMessage))
+
+
+

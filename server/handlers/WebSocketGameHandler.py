@@ -53,6 +53,9 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
         elif messageCode == Message.DestroyRoom:
             Game.destroyRoom(self)
 
+        elif messageCode == Message.ChatMessage:
+            Game.notifyAllPlayersInRoom(self, parsedMessage)
+
 
     def on_close(self):
         Game.playerDisconnected(self)

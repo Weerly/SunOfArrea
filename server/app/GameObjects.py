@@ -3,13 +3,14 @@ import uuid
 import json
 
 from app.constants import Message
+from app.exceptions import *
 
 
 class Player(object):
     """
     Класс описывает модель игрока, и его взаимодействие с клиентом
     """
-    def __init__(self, connection, name= "Anonymous"):
+    def __init__(self, connection, name= "Nameless One"):
         """
         connection <WebSocketHandler> физическое соедениние с клиентом
         name <string> имя игрока
@@ -24,13 +25,15 @@ class Player(object):
         """
         self.connection.write_message(message)
 
-    def notifyPlayer(self, messageType = None, description = None, data = None):
+    def notifyPlayer(self, messageType = None, description = None, message = None, data = None):
         """
         формирует стандартные сообщения на основании переданого типа. Если есть пояснения добавляит их как description
         """
         messageToSend = {}
         if description:
             messageToSend["description"] = description
+        if message:
+            messageToSend["message"] = message
 
         if messageType == Message.PlayerConnected:
             messageToSend["type"] = Message.PlayerConnected
@@ -47,6 +50,7 @@ class Player(object):
     def sendWelcomeMessage(self):
         self.sendToPlayer(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"elf","health":2, "attack":2}}))
+
 
 class Room(object):
     """
