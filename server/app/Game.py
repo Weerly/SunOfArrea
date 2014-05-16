@@ -111,5 +111,16 @@ class Game(object):
                                 description= "smth gone wrong. message is incorrect or player not in the room",
                                 message= json.dumps(clientMessage))
 
+    @classmethod
+    def setPlayerName(cls, connection, clientMessage):
+        player = cls.players.get(connection)
+        playerName = clientMessage.get("name")
+        if playerName:
+            player.name = playerName
+        else:
+            player.notifyPlayer(Message.Error,
+                                description= "can't find name param",
+                                message= json.dumps(clientMessage))
+
 
 

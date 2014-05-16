@@ -32,6 +32,8 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
         if messageCode == Message.GetCard:
             self.write_message(json.dumps({"type":"cardReceived","card":
                                                                     {"name":"Stormtrooper","health":52, "attack":72}}))
+
+        #------ROOM ACTION------
         elif messageCode == Message.GetListOfRoom:
             self.write_message(json.dumps({"type":Message.ListOfRooms,"rooms": Room.getListOfRooms()}))
 
@@ -55,6 +57,12 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
 
         elif messageCode == Message.ChatMessage:
             Game.notifyAllPlayersInRoom(self, parsedMessage)
+
+        #-------PLAYER ACTION-----------
+        elif messageCode == Message.SetName:
+            Game.setPlayerName(self, parsedMessage)
+
+
 
 
     def on_close(self):

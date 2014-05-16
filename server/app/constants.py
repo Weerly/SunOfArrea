@@ -11,6 +11,7 @@ class Message():
     RoomDestroyed       = 41
     PlayerDisconnected  = 50
     ChatMessage         = 60
+    SetName             = 200
 
     SUCCESS             = 1000
     CriticalError       = 1010
