@@ -4,7 +4,7 @@ import json
 
 import tornado.websocket
 
-from app.Game import Game
+from app.GlobalManager import GlobalManager
 from app.GameObjects import Room
 from app.constants import Message
 from app.exceptions import *
@@ -12,7 +12,7 @@ from app.exceptions import *
 class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
 
     def open(self):
-        Game.newPlayerConnected(self)
+        GlobalManager.newPlayerConnected(self)
 
     def on_message(self, message):
         logging.warning("Message Received: "+message)
@@ -41,7 +41,7 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
             #Возвращает id комнаты, или сообщает что игрок уже в другой комнате.
             roomName = parsedMessage.get("name", None)
             try:
-                roomId = Game.createRoom(self, roomName)
+                roomId = GlobalManager.createRoom(self, roomName)
             except PlayerException as e:
                 self.write_message(json.dumps({"type":Message.Error,"description": e.value}))
                 logging.warning("WShandler createRoom" + str(e.value))
@@ -49,21 +49,21 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
                 self.write_message(json.dumps({"type":Message.RoomCreated,"id": roomId}))
 
         elif messageCode == Message.ConnectToRoom:
-            roomInfo = Game.connectToRoom(self, parsedMessage)
+            roomInfo = GlobalManager.connectToRoom(self, parsedMessage)
             self.write_message(json.dumps({"type":Message.ConnectedToRoom,"roomInfo": json.dumps(roomInfo) }))
 
         elif messageCode == Message.DestroyRoom:
-            Game.destroyRoom(self)
+            GlobalManager.destroyRoom(self)
 
         elif messageCode == Message.ChatMessage:
-            Game.notifyAllPlayersInRoom(self, parsedMessage)
+            GlobalManager.notifyAllPlayersInRoom(self, parsedMessage)
 
         #-------PLAYER ACTION-----------
         elif messageCode == Message.SetName:
-            Game.setPlayerName(self, parsedMessage)
+            GlobalManager.setPlayerName(self, parsedMessage)
 
 
 
 
     def on_close(self):
-        Game.playerDisconnected(self)
+        GlobalManager.playerDisconnected(self)
