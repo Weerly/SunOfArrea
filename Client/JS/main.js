@@ -19,16 +19,30 @@ $(document).ready(function(){
     dataType: "html",
     success:function(data){
         $(document).attr({title:'Rooms'});
+        socket.sendMessage({'type' :constants.type("Setname"),"name":item.username});
         socket.sendMessage({'type' :constants.type("GetListOfRoom")});
         $('body').html(data);
     }
     });
    });
-   $(document).on('click','#Enter',function(){if(selectarray.length !==0){  
+   $(document).on('click','#go',function(){
+       var You = 'ggg';
+       console.log('it`s click');
+       socket.sendMessage({'type':60,'message':'Hello it`s a test`s text for the chat'});
+   });
+   $(window).unload(function(){
+       socket.sendMessage({'type' :Room.disconnected(),});//'name':disconnected.name,'id':disconnected.id,'player':disconnected.player});
+   });
+   $(document).on('click','#Enter',function(){if(selectarray.length !==0){
+           socket.sendMessage({'type':constants.type('cardReceived')});
            socket.sendMessage({'type' :constants.type("ConnectToRoom"),'id':selectarray[0]});}});
-   $(document).on('click','#Create',function(){socket.sendMessage({'type' :constants.type("CreateRoom"),'name':'battle'});});
+   $(document).on('click','#Create',function(){
+       socket.sendMessage({'type':constants.type('cardReceived')});
+       socket.sendMessage({'type' :constants.type("CreateRoom"),'name':'battle'});
+   });
    $(document).on('click','#refresh',function(){socket.sendMessage({'type' :constants.type("GetListOfRoom")});});
-   $(document).on('dblclick','.roomlist',function(){if(selectarray.length !==0){  
+   $(document).on('dblclick','.roomlist',function(){if(selectarray.length !==0){
+           socket.sendMessage({'type':constants.type('cardReceived')});
            socket.sendMessage({'type' :constants.type("ConnectToRoom"),'id':selectarray[0]});
    }});
    $(document).on('mouseover','.roomlist',function(){

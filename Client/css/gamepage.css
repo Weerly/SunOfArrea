@@ -1,3 +1,11 @@
+@font-face{
+    font-family: fantasy;
+    src:url(/fonts/ResidentEvilLarge.ttf);
+}
+@font-face{
+    font-family:mkda;
+    src:url(/fonts/mkda.ttf);
+}
 * {
 	margin: 0;
 	padding: 0;
@@ -211,61 +219,139 @@ button{
 }
 /*------BattleRoom--------------------------------------------------------*/
 .blur-block{
-			margin:0 auto;
-			position:fixed;
-			-webkit-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
-			-moz-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
-			box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
-			
-			width:100%;
-			height:100%;
+    margin:0 auto;
+    position:fixed;
+    -webkit-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+    -moz-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+    box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;	
+    width:100%;
+    height:100%;
 }
-                #prepareBlock{
-                    position: absolute;
-                    top: 25%;
-                    left: 25%;
-                    width: 60%;
-                    height: 60%;
-                    -webkit-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
-                    -moz-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
-                    box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
-                    z-index: 100;
-                    background: #737373;
-                }
-                .player{
-                    position: relative;
-                    padding: 1px;
-                    margin: 2.5%;
-                    width: 45%;
-                    height: 90%;
-                    
-                }
-                .left_bckgrd{
-                    background:linear-gradient(315deg, wheat 10%,rgba(48,127,255,0.1) 20%, wheat 30%,
-                           rgba(48,127,255,0.1) 40%, wheat 50%,rgba(48,127,255,0.1) 60%,
-                           wheat 70%,rgba(48,127,255,0.1) 80%, wheat 90%,rgba(48,127,255,0.1) 100%);
-                }
-                .right_bckgrd{
-                    background:linear-gradient(45deg, wheat 10%,rgba(48,127,255,0.1) 20%, wheat 30%,
-                           rgba(48,127,255,0.1) 40%, wheat 50%,rgba(48,127,255,0.1) 60%,
-                           wheat 70%,rgba(48,127,255,0.1) 80%, wheat 90%,rgba(48,127,255,0.1) 100%);
-                }
-                .left_border{
-                    border-left: 3px inset black;
-                }
-                .right_border{
-                    border-right: 3px inset black;
-                }
-                .heroPresentation{
-                    margin:20% 0.3%;
-                    width: 40%;
-                    height: 60%;
-                    background: wheat;
-                    border: 3px inset black;
-                }
-                .heroData{
-                    border: 1px black solid;
-                    margin-top: 20%;
-                    width: 50%;
-                    height: 60%;
-                }		
+#prepareBlock{
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 60%;
+    height: 60%;
+    -webkit-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+    -moz-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+    box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+    z-index: 100;
+    background: #737373;
+}
+.player{
+    position: relative;
+    padding: 1px;
+    margin: 2.2%;
+    width: 43%;
+    height: 90%;                
+}
+.left_bckgrd{
+    background:linear-gradient(315deg, wheat 10%,rgba(48,127,255,0.1) 20%, wheat 30%,
+               rgba(48,127,255,0.1) 40%, wheat 50%,rgba(48,127,255,0.1) 60%,
+               wheat 70%,rgba(48,127,255,0.1) 80%, wheat 90%,rgba(48,127,255,0.1) 100%);
+ }
+ .right_bckgrd{
+    background:linear-gradient(45deg, wheat 10%,rgba(48,127,255,0.1) 20%, wheat 30%,
+               rgba(48,127,255,0.1) 40%, wheat 50%,rgba(48,127,255,0.1) 60%,
+               wheat 70%,rgba(48,127,255,0.1) 80%, wheat 90%,rgba(48,127,255,0.1) 100%);
+ }
+ .left_border{
+    border-left: 3px inset black;
+ }
+ .right_border{
+    border-right: 3px inset black;
+ }
+.heroPresentation{
+    margin:20% 0.3%;
+    width: 40%;
+    height: 60%;
+    background: wheat;
+    border: 3px inset black;
+}
+.heroData{
+    border: 1px black solid;
+    margin-top: 20%;
+    width: 50%;
+    height: 60%;
+}		
+.vertical_text{
+    width: 1em;
+    line-height: 1em;
+    color: black;
+    text-align: center;
+    font-family:mkda;
+    font-size: 40px;
+    margin-top: 25%;
+}
+.flag_border{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 0.1em black solid;
+}
+.flag_line{
+    width: 33.3%;
+    height: 100%;
+}
+.red{
+    background: red;
+}
+.blue{
+    background: blue;
+}
+.white{
+    background: white;
+}
+.flag_shield{
+    background: url('/img/England-shield.svg.png');
+    background-size: 100% 100%;
+    background-origin: content-box;
+    width: 100%;
+    height: 100%;
+}
+.avatar{
+    background:white;
+    position: absolute;
+    background-size: 30% 30%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    left: 34%;
+    top: 25%;
+}
+.battle_button{
+    width: 24%;
+    position: absolute;
+    height: 8%;
+    background: rgb(129, 127, 127);
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    padding-top: 2.5%;
+}
+#nav_buttons{
+    position: absolute;
+    left: 120%;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+}
+.preBattle_alert{
+    border-radius: 4px;
+    background: red;
+    width: 10%;
+    height: 10%;
+}
+a#go,a#back:hover,:focus,:active{
+    text-decoration: none;
+    color: white;
+}
+.next{
+    left: 66%;
+    top: 90%;
+}
+.back{
+    left:5%;
+    top: 90%;
+}

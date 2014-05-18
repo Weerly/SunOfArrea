@@ -6,13 +6,18 @@ var receivedData = {
         switch(Data.type){
             case 11: Room.display(Data.rooms);
                 break;
-             case 31:Room.connect(Data);
+             case 31:
+                Room.player2(Data); 
+                Room.connect(Data);
                 break;
               case 32:Room.afterCreate(Data);
                 break;
-            case 21: Room.create(Data);
+            case 21:
+                Room.player1(Data);
+                Room.create(Data);
                 break;
-            case"cardReceived": Card.display(Data.card);
+            case"cardReceived":console.log(Data);
+                Card.display(Data);
                 break;
             default:console.log('simple msg');
                 break;
@@ -23,6 +28,9 @@ var constants = {
     type: function(type){
         var constant;
         switch(type){
+            case'cardReceived':
+                constant = 1;
+                break;
             case'GetListOfRoom':
                 constant = 10;
                 break;
@@ -43,6 +51,9 @@ var constants = {
                 break;
             case'PlayerConnected':
                 constant = 32;
+                break;
+            case'Setname':
+                constant = 200;
                 break;   
         }
         return constant;
@@ -50,17 +61,16 @@ var constants = {
 };
 var Room = {
     display:function(room){
-        console.log(room);
         this.roomList(room);
     },
     create: function(Data){
-        Battle.prepare(Data);
+        Battle.prepare(Data,1);
     },
     afterCreate: function(Data){
         Battle.playerConnected(Data);
     },
     connect: function(Data){
-        Battle.prepare(Data);
+        Battle.prepare(Data,2);
     },
     roomList:function(room){
         $('#roomcontent').html('');
@@ -84,15 +94,15 @@ var Room = {
          }    
     },
     printRoomCycle:function(room,emptyRoom,divAttribute,divLeft,divRight){
-        var enable = true;
-        if(enable === true){
-            enable = 'enable';
-        }else{
-            enable = 'disable';
-        }
+        
         for(var i=0;i<room.length;i++){
             if(emptyRoom === ''){
-                console.log(room.name);
+                var enable = room[i].player2;
+                if(enable === null){
+                    enable = 'enable';
+                }else{
+                    enable = 'disable';
+                }
                 var divAttribute = '<div class="roomlist" id='+room[i].id+'>';
                 var divAttributeLeft = '<div class="roomlistblock centered '+enable+' f-right">';
                 var divAttributeRight = '<div class="roomlistblock centered '+enable+' f-left">';
@@ -108,24 +118,44 @@ var Room = {
             $('#roomcontent').append(roomInList);
         }
     },
+    player1:function(data){
+        this.disconnected.id = data.id;
+        this.disconnected.name = data.name;
+        this.disconnected.player = "player1";
+    },
+    player2:function(data){
+        this.disconnected.id = data.roomInfo.id;
+        this.disconnected.name = data.roomInfo.name;
+        this.disconnected.player = "player2";
+    },
+    disconnected:function(){
+        var id;
+        var player;
+        var name;
+        var type;
+        if(player === "player1"){
+            type = 40;
+            return type;
+        }
+    },
     select:function($this,selectArray){
+         var card = Card.display();
+         console.log(card);
         var Id = $this.attr('id');
-        alert(Id);
         $id = '#'+Id+'';
-        if(selectArray.length === 0){
+        if(selectArray.length === 0&&$($id).children().hasClass('enable')){
                selectArray.push(Id,$id);
                $this.css({'background':'linear-gradient(315deg, green 10%,rgba(48,127,255,0.1) 20%, green 30%,'+
                            'rgba(48,127,255,0.1) 40%, green 50%,rgba(48,127,255,0.1) 60%,'+
                            ' green 70%,rgba(48,127,255,0.1) 80%, green 90%,rgba(48,127,255,0.1) 100%)'});
-           }else if(Id !== selectArray[0]){
+           }else if(Id !== selectArray[0]&&$($id).children().hasClass('enable')){
                $(selectArray[1]).css({'background':'none'});
-               selectArray.pop(selectArray[0]);
+               selectArray.pop(selectArray[0]); 
                selectArray.pop(selectArray[1]);
                selectArray.push(Id,$id);
                $this.css({'background':'linear-gradient(315deg, green 10%,rgba(48,127,255,0.1) 20%, green 30%,'+
                            'rgba(48,127,255,0.1) 40%, green 50%,rgba(48,127,255,0.1) 60%,'+
                            ' green 70%,rgba(48,127,255,0.1) 80%, green 90%,rgba(48,127,255,0.1) 100%)'});
-
            }else{
                $(selectArray[1]).css({'background':'none'});
                selectArray.pop(selectArray[0]);
@@ -140,22 +170,46 @@ var Room = {
 		radius:7		
 	});
     },
-     prepare: function(data){
+     prepare: function(data_,player){
          $("body").load("/pages/BattlepreRoom.html",function(data){
-             Ajax.$success_("Room",data);
-             $('#1stPlayerName').text('Your Name');
-             $('#1stPlayerClass').text('Your Class');
-             Battle.blurLoad();
+             Ajax.$success_("Room",data);       
+              var card = Cookie.getKookie("Card");
+             $('#1stPlayerName').text('Anonimous1');
+             //$('#1stPlayerClass').text(card.hero[0].name);
+             $('#2ndPlayerName').text('Anonimous2');
+             //$('#2ndPlayerClass').text(card.hero[1].name);
+             $('#Hero1').load('/flags/player1.html',function(){
+                 $('#av1').css({"background":'url("/img/player1av.png")',"background-size":'30% 30%',"background-repeat":'no-repeat'});
+             });
+             $('#Hero2').load('/flags/player2.html',function(){
+                 $('#av2').css({"background":'url("/img/player2av.png")',"background-size":'30% 30%',"background-repeat":'no-repeat'});
+             });
+             if(player === 1){
+                 $('#btns').hide();
+                 $('#wait_alert').show();
+             }else{
+                 $('#nav_buttons').show();
+                 $('.preBattle_alert').hide();
+             }
+             //Battle.blurLoad();
          });
      },
      playerConnected:function(data){
-            $('#2ndPlayerName').text('Your Name');
-            $('#2ndPlayerClass').text('Your Class');
+            var card = Cookie.getKookie("Card");
+            $('#2ndPlayerName').text('Anonimous2');
+            $('#2ndPlayerClass').text(card.hero[1].name);
      }
  }; 
  var Card = {
      display: function(cards){
-         this.clickAnimation(cards);
+         console.log(cards);
+         //this.clickAnimation(cards);
+         Cookie.setKookie("Card",cards);
+     },
+     data:function(){
+         var cardss;
+         console.log(cardss);
+         return cardss;
      },
      overAnimation:function($this){
          var $next = $this.next();
@@ -250,5 +304,17 @@ var Room = {
         });
     }
 };
+ var Cookie = {
+    setKookie:function(name,value){
+        //var card;
+        
+        $.cookie(name,JSON.stringify(value),{expires: 300});
+        console.log($.cookie('Card'));
+    },
+    getKookie:function(name){
+        console.log(JSON.parse($.cookie(name)));
+        return JSON.parse($.cookie(name));
+    }
+ };
 //<!--script type='text/javascript' src='http://code.jquery.com/jquery-1.7.1.js'></script>
 //	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script-->
