@@ -7,7 +7,7 @@ from GameObjects import *
 from exceptions import *
 from .constants import *
 
-class Game(object):
+class GlobalManager(object):
     """
     Основной класс игры содержащий список всех подключений.
     """
@@ -23,7 +23,7 @@ class Game(object):
         p = Player(connection)
         cls.players[connection] =  p
         p.sendWelcomeMessage()
-        logging.info("Game.players: "+str(cls.players))
+        logging.info("GlobalManager.players: "+str(cls.players))
 
     @classmethod
     def playerDisconnected(cls, connection):
@@ -89,7 +89,7 @@ class Game(object):
                 #all OK. return room info
                 return room.getRoomInfo()
         else:
-            logging.error("Game.connectToRoom() id or player is not right")
+            logging.error("GlobalManager.connectToRoom() id or player is not right")
             return None
 
     @classmethod
