@@ -74,9 +74,19 @@ class TestServer(unittest.TestCase):
         #get list of rooms
         self.ws.send(json.dumps({'type':Message.GetListOfRoom}))
         print "list of rooms {0}".format(self.ws.recv())
-
         self.assertIn(str(Message.SUCCESS), res)
 
+    # def test_client_can_send_chat_messages(self):
+    #     print "\n  chat *****************************************"
+    #     self.ws.recv()
+    #     self.ws.send(json.dumps({'type':Message.ListOfRooms}))
+    #     res = self.ws.recv()
+    #     roomId = json.loads(res)['id']
+    #     self.ws.send(json.dumps({'type':Message.ConnectToRoom, 'id':roomId}))
+    #     _= self.ws.recv()
+    #
+    #     self.assertIn("id", res)
+    #
 
     def tearDown(self):
         self.ws.close()

@@ -86,6 +86,7 @@ class GlobalManager(object):
         if id and player:
             room = Room.getRoomById(id)
             if room.addPlayerToRoom(player):
+                player.room = room
                 #all OK. return room info
                 return room.getRoomInfo()
         else:
@@ -101,8 +102,11 @@ class GlobalManager(object):
     def notifyAllPlayersInRoom(cls, connection, clientMessage):
         player =  cls.players.get(connection, None)
         room = player.room
+        logging.warning(player)
+        logging.warning(room)
         #clientMessage must contain message to send.
         message = clientMessage.get("message", None)
+        logging.warning(message)
         if message is not None and room is not None:
             room.notifyAllPlayers(json.dumps({"type": Message.ChatMessage, "message": message,
                                               "playerName": player.name}))
