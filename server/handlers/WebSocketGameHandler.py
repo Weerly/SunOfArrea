@@ -52,6 +52,9 @@ class WebSocketGameHandler(tornado.websocket.WebSocketHandler):
             roomInfo = GlobalManager.connectToRoom(self, parsedMessage)
             self.write_message(json.dumps({"type":Message.ConnectedToRoom,"roomInfo": json.dumps(roomInfo) }))
 
+        elif messageCode == Message.LeaveRoom:
+            GlobalManager.playerLeavesTheRoom(self)
+
         elif messageCode == Message.DestroyRoom:
             GlobalManager.destroyRoom(self)
 

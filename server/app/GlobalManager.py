@@ -35,6 +35,11 @@ class GlobalManager(object):
         logging.info("Players list: "+str(cls.players))
 
     @classmethod
+    def playerLeavesTheRoom(cls, connection):
+        player = cls.getPlayerByConnection(connection)
+        player.room.playerDisconnected(player)
+
+    @classmethod
     def getPlayerByConnection(cls, connection):
         player =  cls.players.get(connection, None)
         return player
