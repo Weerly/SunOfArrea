@@ -14,6 +14,7 @@ port:{0}
 """
 
 if __name__ == "__main__":
+    tornado.options.parse_command_line()
     #Set log level
     logging.basicConfig(level=logging.WARNING)
 

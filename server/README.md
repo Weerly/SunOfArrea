@@ -14,3 +14,10 @@ Usage:
 ```sh
 python server.py
 ```
+
+
+**Accepted parameters:**
+Parameter | Default | Meaning
+--- | :---: | ---
+`--help` | | Print all available options
+`--port` | 8000 | run server on the given port
