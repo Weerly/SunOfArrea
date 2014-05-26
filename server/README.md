@@ -17,8 +17,10 @@ python server.py
 
 
 **Accepted parameters:**
+
+
 Parameter | Default | Meaning
 --- | :---: | ---
-`--help` | | Print all available options
+`--help` | N/A | Print all available options
 `--port` | 8000 | Run server on the given port
 `--log`  | 30(WARNING) | Specifying the level of detail displayed
