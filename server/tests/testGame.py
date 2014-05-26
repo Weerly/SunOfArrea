@@ -26,5 +26,17 @@ class TestGame(unittest.TestCase):
         self.assertEqual(self.game.player1_game_field, [])
         self.assertEqual(self.game.player2_game_field, [])
 
+    def test_dead_card_removed_from_field(self):
+        c1 = CreatureCard()
+        c2 = CreatureCard()
+        #kill creatures
+        c1.is_alive = False
+        c2.is_alive = False
+        self.game.player1_game_field[1] = c1
+        self.game.player2_game_field[2] = c2
+        self.game.remove_dead()
+        self.assertEqual(self.game.player1_game_field[1], None)
+        self.assertEqual(self.game.player2_game_field[2], None)
+
 if __name__ == '__main__':
     unittest.main()
