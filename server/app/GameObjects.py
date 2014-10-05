@@ -72,8 +72,9 @@ class Room(object):
     def destroyRoom(self):
         """Удаляет комнату, и информирует второго игрока"""
         if self.player2:
+            self.player2.room = None
             self.player2.notifyPlayer(Message.RoomDestroyed)
-            self.player1.room = None
+        self.player1.room = None
         Room.rooms.pop(self.id, None)
 
     def playerDisconnected(self, player):

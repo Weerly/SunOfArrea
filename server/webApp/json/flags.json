@@ -1,0 +1,13 @@
+{
+"treecolor1":[
+				{"block":"<div class=\"flag_border\">"},
+				{"block":"<div class=\"avatar\" id=\"av1\"></div>"},
+				{"block":"<div class=\"flag_line f-left color1\"></div>"},
+				{"block":"<div class=\"flag_line f-left color2\"></div>"},
+				{"block":"<div class=\"flag_line f-left color3\"></div>"},
+				{"block":"</div>"}],
+	"colors":[{"color1":"blue"},
+				{"color":"red"},
+				{"color":"white"}
+				]
+}

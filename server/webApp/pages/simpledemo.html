@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Blur.js</title>
+        <script type="text/javascript" src="/js/jquery-1.10.2.js" ></script>
+        <script type="text/javascript" src="/js/jquery-ui.js" ></script>
+	
+	<script type='text/javascript' src='/js/blur.min.js'></script>
+        <script type="text/javascript" src="/js/main.js" ></script>
+	<style type='text/css'>
+		body{
+			margin:0;padding:0;
+			color:#fff;
+			font-family:arial;
+			text-shadow:0 2px 2px #000;
+			
+			background:top left no-repeat;
+			background-image:url('/img/start.jpg');
+			
+		}
+		.circle{
+			margin:0 auto;
+			
+			-webkit-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+			-moz-box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+			box-shadow:0 2px 2px #000, 0 1px 0 #fff inset;
+			
+			width:255px;
+			height:255px;
+			
+			-webkit-border-radius:127px;
+			-moz-border-radius:127px;
+			border-radius:127px;
+			
+			cursor:move;
+		}
+	</style>
+</head>
+<body>
+	<div class="circle"></div>
+        <button id="b1">button</button>
+        <button id="b2">button2</button>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+	</script>
+</body>
+</html>
